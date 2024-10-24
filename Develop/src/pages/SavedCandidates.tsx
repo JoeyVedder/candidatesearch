@@ -13,6 +13,12 @@ const SavedCandidates = () => {
     return <div>No candidates have been accepted.</div>;
   }
 
+  const removeCandidate = (id: number) => {
+    const updatedCandidates = savedCandidates.filter(candidate => candidate.id !== id);
+    setSavedCandidates(updatedCandidates);
+    localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
+  };
+
   return (
     <>
       <h1>Potential Candidates</h1>
@@ -25,7 +31,8 @@ const SavedCandidates = () => {
             <p>Location: {candidate.location}</p>
             <p>Email: {candidate.email}</p>
             <p>Company: {candidate.company}</p>
-            <a href={candidate.html_url}>GitHub Profile</a>
+            <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">GitHub Profile</a>
+            <button onClick={() => removeCandidate(candidate.id)}>Remove</button>
           </li>
         ))}
       </ul>

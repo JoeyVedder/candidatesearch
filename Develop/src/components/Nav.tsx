@@ -1,11 +1,27 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
     <nav>
       <ul>
-        <li><Link to="/">Candidate Search</Link></li>
-        <li><Link to="/saved-candidates">Saved Candidates</Link></li>
+        <li>
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => (isActive ? 'active' : undefined)} 
+            aria-label="Candidate Search"
+          >
+            Candidate Search
+          </NavLink> 
+        </li>
+        <li>
+          <NavLink 
+            to="/saved-candidates" 
+            className={({ isActive }) => (isActive ? 'active' : undefined)} 
+            aria-label="Saved Candidates"
+          >
+            Saved Candidates
+          </NavLink> 
+        </li>
       </ul>
     </nav>
   );

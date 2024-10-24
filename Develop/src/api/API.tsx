@@ -1,24 +1,35 @@
 const searchGithub = async () => {
   try {
     const start = Math.floor(Math.random() * 100000000) + 1;
-    const response = await fetch(
-      `https://api.github.com/users?since=${start}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-        },
-      }
-    );
-    console.log('Response:', response);
-    const data = await response.json();
+    const response = await fetch(`https://api.github.com/users?since=${start}`, {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+      },
+    });
+    
+
     if (!response.ok) {
-      throw new Error('invalid API response, check the network tab');
+      throw new Error('Invalid API response, check the network tab');
     }
-    console.log('Data:', data);
-    return data;
+
+    const data = await response.json();
+
+    
+    const candidates = data.map((user: any) => ({
+      name: user.name || 'N/A',
+      username: user.login,
+      location: user.location || 'N/A',
+      avatar: user.avatar_url,
+      email: user.email || 'N/A',
+      html_url: user.html_url,
+      company: user.company || 'N/A',
+    }));
+
+    console.log('Candidates:', candidates);
+    return candidates;
   } catch (err) {
-    console.log('an error occurred', err);
-    return [];
+    console.error('An error occurred', err);
+    return []; 
   }
 };
 
@@ -29,14 +40,28 @@ const searchGithubUser = async (username: string) => {
         Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
       },
     });
-    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error('invalid API response, check the network tab');
+      throw new Error('Invalid API response, check the network tab');
     }
-    return data;
+
+    const data = await response.json();
+
+    
+    const candidate = {
+      name: data.name || 'N/A',
+      username: data.login,
+      location: data.location || 'N/A',
+      avatar: data.avatar_url,
+      email: data.email || 'N/A',
+      html_url: data.html_url,
+      company: data.company || 'N/A',
+    };
+
+    return candidate;
   } catch (err) {
-    console.log('an error occurred', err);
-    return {};
+    console.error('An error occurred', err);
+    return {}; 
   }
 };
 

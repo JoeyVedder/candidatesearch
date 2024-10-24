@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <CandidateSearch />,
       },
       {
-        path: '/saved-Candidates',
+        path: '/saved-candidates',  
         element: <SavedCandidates />,
       },
     ],
