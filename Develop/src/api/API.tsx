@@ -1,12 +1,14 @@
 const searchGithub = async () => {
   try {
     const start = Math.floor(Math.random() * 100000000) + 1;
-    const response = await fetch(`https://api.github.com/users?since=${start}`, {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-      },
-    });
-    
+    const response = await fetch(
+      `https://api.github.com/users?since=${start}`,
+      {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error('Invalid API response, check the network tab');

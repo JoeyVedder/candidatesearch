@@ -5,7 +5,7 @@ import { searchGithub } from '../api/API';
 const CandidateSearch = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [currentCandidate, setCurrentCandidate] = useState<Candidate | null>(null);
-  const [message, setMessage] = useState<string>(''); // State for feedback message
+  const [message, setMessage] = useState<string>(''); 
 
   useEffect(() => {
     const fetchCandidates = async () => {
@@ -14,7 +14,7 @@ const CandidateSearch = () => {
         setCandidates(data);
         if (data.length > 0) setCurrentCandidate(data[0]);
       } catch (error) {
-        setMessage('Failed to fetch candidates. Please try again later.'); // Error message
+        setMessage('Failed to fetch candidates. Please try again later.'); 
       }
     };
     fetchCandidates();
@@ -25,7 +25,7 @@ const CandidateSearch = () => {
       const savedCandidates = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
       savedCandidates.push(currentCandidate);
       localStorage.setItem('savedCandidates', JSON.stringify(savedCandidates));
-      setMessage(`${currentCandidate.name} has been saved!`); // Confirmation message
+      setMessage(`${currentCandidate.name} has been saved!`); 
       nextCandidate();
     }
   };
